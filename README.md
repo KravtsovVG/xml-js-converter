@@ -10,7 +10,7 @@ However, it's ***still beta*** and should be used with caution.
 
 Convert between an XML string and JavaScript objects (in both directions), following a specific schema. 
 
-If you only need a generic conversion, you will probably find [https://www.npmjs.com/package/xml2js](xml2js) or [https://www.npmjs.com/package/xml2json](xml2json) suits your needs better.
+If you only need a generic conversion, you will probably find [xml2js](https://www.npmjs.com/package/xml2js) or [xml2json](https://www.npmjs.com/package/xml2json) suits your needs better.
 
 What `xml-js-converter` allows you to do, is specify the way in which certain nodes are converted.
 For instance, say you had the following XML:
