@@ -1,0 +1,34 @@
+{
+  "name": "xml-js-converter",
+  "version": "1.0.0",
+  "description": "Convert XML to a JavaScript object and back, following a specific schema. Define your own rules for how to convert attributes and content",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bruderstein/xml-js-convert.git"
+  },
+  "keywords": [
+    "xml",
+    "json",
+    "conversion",
+    "convert"
+  ],
+  "author": "Dave Brotherstone <dave@bruderste.in>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bruderstein/xml-js-convert/issues"
+  },
+  "homepage": "https://github.com/bruderstein/xml-js-convert",
+  "dependencies": {
+    "object-assign": "^3.0.0",
+    "sax": "^1.1.1",
+    "xmlbuilder": "^2.6.4"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5",
+    "unexpected": "^9.2.1"
+  }
+}
