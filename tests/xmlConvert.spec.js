@@ -379,6 +379,45 @@ describe('xmlConvert', function () {
 
         });
 
+      it('converts $arrayElement: `<attrib-name>` arrays', function (done) {
+
+        XmlConvert.fromXml('<test>' +
+          '<something>' +
+          '<download>http://example.com</download>' +
+          '<copy from="a" to="b" />' +
+          '</something>' +
+          '</test>', {
+          test: {
+            something: {
+              $content: false,
+              $arrayElement: 'type',
+              download: {
+                $content: 'url'
+              }
+            }
+          }
+        }, function (err, value) {
+
+          expect(err, 'to be null');
+          expect(value, 'to equal', {
+            test: {
+              something: [
+                {
+                  type: 'download',
+                  url: 'http://example.com'
+                },
+                {
+                  type: 'copy',
+                  from: 'a',
+                  to: 'b'
+                }
+              ]
+            }
+          });
+          done();
+        });
+
+      });
 
         it('converts the example from the readme with all features', function (done) {
 
@@ -636,6 +675,47 @@ describe('xmlConvert', function () {
             })
         });
 
+      it('converts $arrayElement: `<attrib-name>` arrays', function (done) {
+
+        XmlConvert.toXml({
+            test: {
+              something: [
+                {
+                  type: 'download',
+                  url: 'http://example.com'
+                },
+                {
+                  type: 'copy',
+                  from: 'a',
+                  to: 'b'
+                }
+              ]
+            }
+          }, {
+          test: {
+            something: {
+              $content: false,
+              $arrayElement: 'type',
+              download: {
+                $content: 'url'
+              }
+            }
+          }
+        }, function (err, value) {
+
+          expect(err, 'to be null');
+          expect(value, 'to equal',
+            '<test>' +
+            '<something>' +
+            '<download>http://example.com</download>' +
+            '<copy from="a" to="b"/>' +
+            '</something>' +
+            '</test>'
+          );
+          done();
+        });
+
+      });
 
         it('converts the example from the readme with all features', function (done) {
 

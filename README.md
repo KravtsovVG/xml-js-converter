@@ -329,6 +329,54 @@ the same as normal elements.
 The specs for `achievement` and `skill` will be used for every `achievement` and `skill` element 
 in the parent element.  If an unknown element occurs, it will simply use a default specification (`{}`)
 
+Each element in the array is by default wrapped in an object with a single key of the name of the tag. 
+If you want to assign the name of the tag to another attribute, simply set `$arrayElement` to the name 
+of the tag you'd like to set.
+
+e.g. To convert the above XML to the following JavaScript object:
+
+```javascript
+{
+    person: {
+        id: '195',
+        firstName: 'Alan',
+        lastName: 'Turing',
+        attributes: [
+            {   
+                typeName: 'skill',
+                id: 'CS101',
+                name: 'Computer theory'
+            },
+            { 
+                typeName: 'achievement',
+                id: 'ENIG1',
+                name: 'Code breaking'
+            }
+        ] 
+    }
+}
+
+```
+
+The `$arrayElement` for `attributes` must be set to `'typeName'` instead of `true`, in order that the 
+object is not wrapped, and the tag name becomes another property.  So the spec becomes:
+
+```javascript
+var spec = {
+    person: {
+        firstName: { $content: false },
+        lastName: { $content: false },
+        attributes: {
+            $arrayElement: 'typeName',
+            $content: false,
+            achievement: { $content: 'name' },
+            skill: { $content: 'name' }
+        }
+    }
+};
+```
+
+``
 
 # Contributing
 
@@ -357,40 +405,4 @@ Things we'd like soon:
 Things we'd like eventually:
 
 * Support for naming nodes differently in JS and XML 
-* Support for dropping the wrapper on arrayElements
-  e.g. from 
-  
-  ```xml
-  <people>
-    <person name="monica" />
-    <person name="steve" />
-  </people>
-  ``` 
-
-To be transformed to
-
-```javascript
-  { people: [ { name: 'monica' }, { name: 'steve' } ] }
-```
-
-
-* Support for using an attribute as the "content"
-  e.g. from
-
-```xml
-   <director>
-      <person name="tim cook" />
-   </director>
-```
-
-   To be transformed to 
-```javascript
-{
-    director: {
-        person: 'tim cook'
-    }
-}
-```
-This would also enable the `people` array in the previous example to be transformed to a simple array of strings.
-
 
